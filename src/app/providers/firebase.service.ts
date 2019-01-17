@@ -21,7 +21,7 @@ export class FirebaseService {
   constructor(public afAuth: AngularFireAuth, public afs: AngularFirestore,  public router: Router) {
     this.user$ = this.afAuth.authState.pipe(switchMap(user => {
       if(user) {
-        if ((user.email.endsWith("pdsb.net") && user.email.startsWith("p")) || (user.email == "rushigandhi25@gmail.com")){
+        if ((user.email.endsWith("pdsb.net") && user.email.toLowerCase().startsWith("p")) || (user.email == "rushigandhi25@gmail.com")){
           return this.afs.doc<User>(`teachers/${user.uid}`).valueChanges();
         }
         else {
@@ -37,7 +37,7 @@ export class FirebaseService {
   signInWithGoogle(){
     const provider = new firebase.auth.GoogleAuthProvider();
     this.afAuth.auth.signInWithPopup(provider).then((credential) => {
-      if ((credential.user.email.endsWith("pdsb.net") && credential.user.email.startsWith("p")) || (credential.user.email == "rushigandhi25@gmail.com")) {
+      if ((credential.user.email.endsWith("pdsb.net") && credential.user.email.toLowerCase().startsWith("p")) || (credential.user.email == "rushigandhi25@gmail.com")) {
         this.createTeacher(credential.user);
       }
       else {
