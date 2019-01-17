@@ -1,0 +1,82 @@
+<nav class="nav-wrapper indigo lighten-1" role="navigation">
+    <div class="container">
+        <i class="material-icons left">settings</i>
+        <a id="logo-container" class="brand-logo">
+            <span>ShopSafety</span>
+        </a>
+
+    </div>
+    <ul class="right">
+        <li><a (click)="signOut()">Sign Out</a>></li>
+      </ul>
+  </nav>
+<br>
+  <div *ngIf="student">
+  <div class="container center">
+      <div class="row center">
+          <div class="col s2">
+            <div class="card">
+              <br>
+                <img class="smaller"[src]="student.photoURL">
+                <br>
+              <span class="flow-text">Welcome <br><strong>{{student.fullName}}</strong></span>
+            </div>
+          </div>
+          <div class="col s10">
+                <table class="responsive-table striped">
+                        <thead>
+                          <tr>
+                                <th><p class="flow-text"><strong>Machine</strong></p></th>
+                                <th><p class="flow-text"><strong>Training</strong></p></th>
+                                <th><p class="flow-text"><strong>Videos</strong></p></th>
+                                <th><p class="flow-text"><strong>Tests</strong></p></th>
+                          </tr>
+                        </thead>
+                        <tbody>
+                          <tr *ngFor="let machine of machineList; let i = index">
+                            <td><p class="flow-text">{{machine}}</p></td>
+                            <td>
+                              <div *ngIf="student.inClassTraining[i] == true">
+                                  <i class="material-icons left teal-text text-accent-4">done</i>
+                                  <p class="flow-text">Completed</p>
+                              </div>
+                              <div *ngIf="student.inClassTraining[i] == false">
+                                  <i class="material-icons left red-text text-lighten-1">error</i>
+                                  <p class="flow-text">Incomplete</p>
+                              </div>
+                            </td>
+                            <td>
+                                <div *ngIf="student.onlineTraining[i] == true">
+                                    <i class="material-icons left teal-text text-accent-4">done</i>
+                                    <p class="flow-text">Completed</p>
+                                </div>
+                                <div *ngIf="student.onlineTraining[i] == false">
+                                    <i class="material-icons left red-text text-lighten-1">error</i>
+                                    <p class="flow-text">Incomplete</p>
+                                </div>
+                            </td>
+                            <td>
+                                <div *ngIf="student.tests[i] == true">
+                                    <i class="material-icons left teal-text text-accent-4">done</i>
+                                    <p class="flow-text">Completed</p>
+                                </div>
+                                <div *ngIf="student.tests[i] == false">
+                                    <i class="material-icons left red-text text-lighten-1">error</i>
+                                    <p class="flow-text">Incomplete</p>
+                                </div>
+                            </td>
+                          </tr>
+                        </tbody>
+                      </table>
+          </div>
+  </div>
+
+<!-- 
+<div>
+  <h3>Hello {{student.fullName}} {{student.userNumber}}</h3>
+  <img [src]="student.photoURL">
+  <h3>{{student.onlineTraining}}</h3>
+  <h3>{{student.inClassTraining}}</h3>
+  <h3>{{student.tests}}</h3>
+</div> -->
+

@@ -1,0 +1,129 @@
+<nav class="nav-wrapper indigo lighten-1" role="navigation">
+    <div class="container">
+        <i class="material-icons left">settings</i>
+        <a id="logo-container" class="brand-logo">
+            <span>ShopSafety</span>
+        </a>
+
+    </div>
+    <ul class="right">
+        <li><a (click)="signOut()">Sign Out</a>></li>
+      </ul>
+  </nav>
+<br>
+
+<div *ngIf="teacher">
+    <div class="container center">
+        <div class="row center">
+            <div class="col s2">
+              <div class="card">
+                <br>
+                  <img class="smaller"[src]="teacher.photoURL">
+                  <br>
+                <span class="flow-text">Welcome <br><strong>{{teacher.displayName}}</strong></span>
+              </div>
+            </div>
+            <div class="col s10">
+                <span class="flow-text indigo-text"><p class="flow-text"><strong>Search Student</strong></p></span>
+                <div class="input-field">                
+                  <input id="last_name" type="text" class="validate" [(ngModel)]="searchTerm" (keydown)="search($event)">
+                  <label for="last_name">Student Number</label>
+                  <div *ngIf="searchTerm && searchTerm != ' '">
+                      <ul class ="collection" *ngFor="let student of students">
+                          <li class="collection-item">
+                            <div>{{student.fullName}} <strong>{{student.userNumber}}</strong>
+                              <a href="teacher#!" class="secondary-content">
+                                <i *ngIf="editState == false" (click)="editStudent(student)" class="material-icons">edit</i>
+                                <i *ngIf="editState && studentToEdit.id == student.id" (click)="clearState()" class="material-icons">minimize</i>
+                              </a>
+                            </div>
+                            <div *ngIf="editState && studentToEdit.id == student.id">
+                                  <table class="responsive-table striped">
+                                      <thead>
+                                        <tr>
+                                            <th><p class="flow-text"><strong>Machine</strong></p></th>
+                                            <th><p class="flow-text"><strong>Training</strong></p></th>
+                                            <th><p class="flow-text"><strong>Videos</strong></p></th>
+                                            <th><p class="flow-text"><strong>Tests</strong></p></th>
+                                        </tr>
+                                      </thead>
+                                      <tbody>
+                                        <tr *ngFor="let machine of machineList; let i = index">
+                                          <td><p class="flow-text">{{machine}}</p></td>
+                                          <td>
+                                            <a href="teacher#!">
+                                            <div *ngIf="student.inClassTraining[i] == true" (click)="updateStudent(student, 0, i, false)">
+                                                <i class="material-icons left teal-text text-accent-4">done</i>
+                                                <p class="flow-text">Completed</p>
+                                            </div>
+                                            <div *ngIf="student.inClassTraining[i] == false" (click)="updateStudent(student, 0, i, true)">
+                                                <i class="material-icons left red-text text-lighten-1">error</i>
+                                                <p class="flow-text">Incomplete</p>
+                                            </div>
+                                            </a>
+                                          </td>
+                                          <td>
+                                              <a href="teacher#!">
+                                                  <div *ngIf="student.onlineTraining[i] == true" (click)="updateStudent(student, 1, i, false)">
+                                                      <i class="material-icons left teal-text text-accent-4">done</i>
+                                                      <p class="flow-text">Completed</p>
+                                                  </div>
+                                                  <div *ngIf="student.onlineTraining[i] == false" (click)="updateStudent(student, 1, i, true)">
+                                                      <i class="material-icons left red-text text-lighten-1">error</i>
+                                                      <p class="flow-text">Incomplete</p>
+                                                  </div>
+                                              </a>
+                                          </td>
+                                          <td>
+                                              <a href="teacher#!">
+                                                  <div *ngIf="student.tests[i] == true" (click)="updateStudent(student, 2, i, false)">
+                                                      <i class="material-icons left teal-text text-accent-4">done</i>
+                                                      <p class="flow-text">Completed</p>
+                                                  </div>
+                                                  <div *ngIf="student.tests[i] == false" (click)="updateStudent(student, 2, i, true)">
+                                                      <i class="material-icons left red-text text-lighten-1">error</i>
+                                                      <p class="flow-text">Incomplete</p>
+                                                  </div>
+                                              </a>
+                                          </td>
+                                        </tr>
+                                      </tbody>
+                                    </table>
+                            </div>
+                          
+                          </li>
+                      </ul> 
+                </div>
+                <div *ngIf="students?.length < 1"> 
+                    <p>Sorry, no students found.</p>
+                  </div>
+              </div>
+              </div>
+              </div>
+              </div>
+
+<!-- 
+<div *ngIf="teacher">
+  <h3>Hello {{teacher.displayName}}</h3>
+  <img [src]="teacher.photoURL">
+</div><button (click)="signOut()"> Sign Out</button>
+
+
+<div style="text-align:center">
+  <input type="text" [(ngModel)]="searchTerm" (keydown)="search($event)">
+
+  <div *ngIf="searchTerm && searchTerm != ' '">
+
+  <ul *ngFor="let student of students">
+    <button (click)= "editStudent(student)"> {{student.fullName}} {{student.userNumber}}</button>
+  </ul>
+
+  <div>
+
+  <div *ngIf="students?.length < 1"> 
+    <p>Sorry, no students found.</p>
+  </div>
+
+</div>
+
+ -->
