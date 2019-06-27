@@ -48,7 +48,7 @@ export class FirebaseService {
       else if((credential.user.email == " rgandhi848@gmail.com") || ( !isNaN(parseInt(credential.user.email.charAt(0))) && credential.user.email.endsWith("pdsb.net"))) {
         this.createStudent(credential.user);
       }else{
-        alert("ACCESS DENIED -  Students only");
+        alert("ACCESS DENIED -  Please use your pdsb.net email!");
       }
     
     });
