@@ -16,7 +16,7 @@ export class FirebaseService {
 
   user$: Observable<User>;
   user: User;
-
+ canLogin;
 
   constructor(public afAuth: AngularFireAuth, public afs: AngularFirestore,  public router: Router) {
     this.user$ = this.afAuth.authState.pipe(switchMap(user => {
@@ -28,12 +28,16 @@ export class FirebaseService {
           return this.afs.doc<User>(`students/${user.uid}`).valueChanges();
         }
        
+        
       }
       else {
+       // alert("ACCESS DENIED -  please use a valid email only");
         return of(null);
       }
     }));
   }
+
+
 
   signInWithGoogle(){
     const provider = new firebase.auth.GoogleAuthProvider();
@@ -43,7 +47,10 @@ export class FirebaseService {
       }
       else if((credential.user.email == " rgandhi848@gmail.com") || ( !isNaN(parseInt(credential.user.email.charAt(0))) && credential.user.email.endsWith("pdsb.net"))) {
         this.createStudent(credential.user);
+      }else{
+        alert("ACCESS DENIED -  Students only");
       }
+    
     });
   }
 
