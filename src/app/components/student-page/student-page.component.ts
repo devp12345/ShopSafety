@@ -24,6 +24,7 @@ export class StudentPageComponent implements OnInit {
     "https://www.youtube.com/watch?v=WbYeNyBV8MM", 
     "https://www.youtube.com/watch?v=wid-SXfbv68"];
   
+    
 
 
   constructor(public fbService: FirebaseService, public router: Router) { }
