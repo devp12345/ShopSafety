@@ -22,7 +22,7 @@ export class StudentPageComponent implements OnInit {
     "https://www.youtube.com/watch?v=ip2jm_6aUyk", 
     "https://www.youtube.com/watch?v=_PfoMhFJXfk",
     "https://www.youtube.com/watch?v=WbYeNyBV8MM", 
-    "https://www.youtube.com/watch?v=wid-SXfbv68"];
+    "https://www.youtube.com/watch?v=wid-SXfbv68"]; 
   
     
 
