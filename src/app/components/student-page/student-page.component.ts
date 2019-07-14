@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { FirebaseService } from '../../providers/firebase.service';
 import {Router} from '@angular/router'
 import { User } from '../../models/user'
+import { toast } from 'materialize-css';
 
 @Component({
   selector: 'app-student-page',
@@ -25,17 +26,23 @@ export class StudentPageComponent implements OnInit {
     "https://www.youtube.com/watch?v=wid-SXfbv68"]; 
   
     
-
-
   constructor(public fbService: FirebaseService, public router: Router) { }
   
   ngOnInit() {
-    this.fbService.user$.subscribe(user => this.student = user);
+    this.fbService.user$.subscribe(user => {
+      console.log(user);
+      this.student = user;
+    });
   }
 
   signOut(){
     this.fbService.signOut();
     this.router.navigate(['/']);
+  }
+
+  requestForCompletion(i, type){
+    let toastMessage = "You requested your teacher to change " + this.machineList[i] + " " + type + " to COMPLETE!"
+    toast(toastMessage, 2500);
   }
 
 }
