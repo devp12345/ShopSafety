@@ -44,18 +44,23 @@
                                   <i class="material-icons left red-text text-lighten-1">error</i>
                                   <p class="flow-text">Incomplete</p>
                               </div>
+                              
                             </td>
                             <td>
                                 <div *ngIf="student.onlineTraining[i] == true">
                                     <i class="material-icons left teal-text text-accent-4">done</i>
                                     <p class="flow-text">Completed</p>
                                 </div>
+                               
                                 <div *ngIf="student.onlineTraining[i] == false">
                                     <i class="material-icons left red-text text-lighten-1">error</i>
                                     <p class="flow-text">Incomplete</p>
                                 </div>
+                                <div >
+                                  <a href ="{{videoList[i]}}" target="_blank" >Training video</a>
+                               </div>
                             </td>
-                            <td>
+                            <td>  
                                 <div *ngIf="student.tests[i] == true">
                                     <i class="material-icons left teal-text text-accent-4">done</i>
                                     <p class="flow-text">Completed</p>
