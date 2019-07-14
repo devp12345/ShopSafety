@@ -16,33 +16,41 @@ export class FirebaseService {
 
   user$: Observable<User>;
   user: User;
-
+ canLogin;
 
   constructor(public afAuth: AngularFireAuth, public afs: AngularFirestore,  public router: Router) {
     this.user$ = this.afAuth.authState.pipe(switchMap(user => {
       if(user) {
-        if ((user.email.endsWith("pdsb.net") && user.email.toLowerCase().startsWith("p")) || (user.email == "rushigandhi25@gmail.com")){
+        if ((user.email.endsWith("pdsb.net") && user.email.toLowerCase().startsWith("p")) || (user.email == "rushigandhi25@gmail.com")|| (user.email == "dpancea@gmail.com")){
           return this.afs.doc<User>(`teachers/${user.uid}`).valueChanges();
         }
-        else {
+        else if ((user.email == " rgandhi848@gmail.com") || (!isNaN(parseInt(user.email.charAt(0)))  && user.email.endsWith("pdsb.net"))){
           return this.afs.doc<User>(`students/${user.uid}`).valueChanges();
         }
+       
+        
       }
       else {
+       // alert("ACCESS DENIED -  please use a valid email only");
         return of(null);
       }
     }));
   }
 
+
+
   signInWithGoogle(){
     const provider = new firebase.auth.GoogleAuthProvider();
     this.afAuth.auth.signInWithPopup(provider).then((credential) => {
-      if ((credential.user.email.endsWith("pdsb.net") && credential.user.email.toLowerCase().startsWith("p")) || (credential.user.email == "rushigandhi25@gmail.com")) {
+      if ((credential.user.email.endsWith("pdsb.net") && credential.user.email.toLowerCase().startsWith("p")) || (credential.user.email == "rushigandhi25@gmail.com")|| (credential.user.email == "dpancea@gmail.com")) {
         this.createTeacher(credential.user);
       }
-      else {
+      else if((credential.user.email == " rgandhi848@gmail.com") || ( !isNaN(parseInt(credential.user.email.charAt(0))) && credential.user.email.endsWith("pdsb.net"))) {
         this.createStudent(credential.user);
+      }else{
+        alert("ACCESS DENIED -  Please use your pdsb.net email!");
       }
+    
     });
   }
 
