@@ -7,7 +7,9 @@
 
     </div>
     <ul class="right">
+        <li><button class="btn btn-primary" (click)="onAddMachine()">Add Machine</button></li>
         <li><a (click)="signOut()">Sign Out</a>></li>
+        
       </ul>
   </nav>
 <br>
@@ -23,6 +25,9 @@
                 <span class="flow-text">Welcome <br><strong>{{teacher.displayName}}</strong></span>
               </div>
             </div>
+           
+          
+            
             <div class="col s10">
                 <span class="flow-text indigo-text"><p class="flow-text"><strong>Search Student</strong></p></span>
                 <div class="input-field">                

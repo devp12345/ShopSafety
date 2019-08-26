@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, AfterViewInit } from '@angular/core';
 import { FirebaseService} from '../../providers/firebase.service'
 
 
@@ -20,5 +20,6 @@ export class HomePageComponent implements OnInit {
   signOut(){
     this.fbService.signOut();
   }
+
 
 }

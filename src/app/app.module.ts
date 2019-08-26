@@ -16,6 +16,8 @@ import { FirebaseService } from './providers/firebase.service';
 import { RoutingModule } from './routing.module';
 import { StudentGuard } from './guards/student.guard';
 import { TeacherGuard } from './guards/teacher.guard';
+import { MachineService } from './machines.service';
+import { NewMachine } from './components/teacher-page/new-machine/new-machine.component';
 
 
 @NgModule({
@@ -23,7 +25,8 @@ import { TeacherGuard } from './guards/teacher.guard';
     AppComponent,
     HomePageComponent,
     TeacherPageComponent,
-    StudentPageComponent
+    StudentPageComponent,
+    NewMachine 
   ],
   imports: [
     BrowserModule,
@@ -33,7 +36,7 @@ import { TeacherGuard } from './guards/teacher.guard';
     RoutingModule,
     FormsModule
   ],
-  providers: [FirebaseService, StudentGuard, TeacherGuard],
+  providers: [FirebaseService, StudentGuard, TeacherGuard, MachineService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

@@ -1,8 +1,9 @@
-<nav class="nav-wrapper indigo lighten-1" role="navigation">
+<nav class="nav-wrapper red lighten-1" role="navigation">
     <div class="container">
         <i class="material-icons left">settings</i>
         <a id="logo-container" class="brand-logo">
             <span>ShopSafety</span>
+            <button class="btn btn primary" (click)="onCheck()">Check</button>
         </a>
 
     </div>
@@ -21,8 +22,10 @@
                 <br>
               <span class="flow-text">Welcome <br><strong>{{student.fullName}}</strong></span>
             </div>
+          
           </div>
           <div class="col s10">
+            
                 <table class="responsive-table striped">
                         <thead>
                           <tr>
@@ -68,7 +71,9 @@
                           </tr>
                         </tbody>
                       </table>
+                     
           </div>
+          
   </div>
 
 <!-- 

@@ -1,12 +1,13 @@
 import { Component, OnInit } from '@angular/core';
 import { FirebaseService } from '../../providers/firebase.service';
-import {Router} from '@angular/router'
+import {Router, ActivatedRoute} from '@angular/router'
 import { User } from '../../models/user'
 import { AngularFirestore } from 'angularfire2/firestore';
-import { Subject } from 'rxjs';
+import { Subject, Subscription } from 'rxjs';
 import { Observable } from 'rxjs';
 import { combineLatest } from 'rxjs'
 import { toast } from 'materialize-css';
+import { MachineService } from 'src/app/machines.service';
 
 @Component({
   selector: 'app-teacher-page',
@@ -21,16 +22,30 @@ export class TeacherPageComponent implements OnInit {
   startObservable = this.startAt.asObservable();
   endObservable = this.endAt.asObservable();
 
-  constructor(public fbService: FirebaseService, public router: Router, public afs: AngularFirestore) { }
+  constructor(public fbService: FirebaseService, public router: Router, public afs: AngularFirestore, private machineService: MachineService,
+    private route: ActivatedRoute) { }
   
   searchTerm: string;
   students;
   editState: boolean = false;
   studentToEdit: User;
-  machineList = ["Drill Press","Horizontal Bandsaw", "Vertical Bandsaw", "Lathe", "Surface Grinder", "Bench Grinder", "Milling Machine", "CNC Router", "Laser Cutter", "Hand Tools"]
+  private subscription: Subscription;
+  machineList: any[];
 
 
+  onAddMachine(){
+this.router.navigate(['/add'])
+  }
+  
   ngOnInit() {
+    
+    this.subscription = this.machineService.machinesChanged.subscribe(
+      (machines: any[]) => {
+            this.machineList = machines
+          }
+        
+      );
+      this.machineList = this.machineService.getMachines();
     this.fbService.user$.subscribe(user => this.teacher = user);
     combineLatest(this.startObservable, this.endObservable).subscribe((value) => {
       this.fireQuery(value[0], value[1]).subscribe((students) => {
@@ -66,6 +81,7 @@ export class TeacherPageComponent implements OnInit {
     this.editState = false;
     this.studentToEdit = null;
   }
+
 
   updateStudent(student: User, typeOfTraining: number, i: number, state: boolean) {
     if (typeOfTraining == 0) {

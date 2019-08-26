@@ -1,3 +1,6 @@
 .smaller {
     width: 80%;
   }
+  html { 
+    background-color: green;
+ }

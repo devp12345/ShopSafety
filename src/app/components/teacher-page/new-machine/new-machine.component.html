@@ -1,0 +1,21 @@
+<form (ngSubmit)="onSubmit(form)" #form="ngForm">
+        <div class="row">
+          <div class="col-xs-12 form-group">
+            <label for="name">Name</label>
+            <input type="text" id="name" class="form-control" name="machineName" ngModel required>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-xs-12">
+            <button class="btn btn-success" type="submit">Add machine</button>
+            <button class="btn btn-primary" (click)="onReturn()">Return</button>
+          </div>
+        </div>
+      </form>
+      
+
+
+     <ul *ngFor="let machine of machineList; let i = index" class="list-group">
+      <li class="list-group-item"><p class="flow-text">{{machine}}</p></li>
+      <button class="btn btn-danger" (click)="onDelete(i)">Delete</button>
+     </ul>
