@@ -3,7 +3,7 @@ import { AngularFireAuth } from 'angularfire2/auth'
 import { Observable } from 'rxjs'
 import * as firebase from 'firebase/app'
 import { User } from '../models/user'
-import { AngularFirestoreCollection, AngularFirestore, AngularFirestoreDocument } from 'angularfire2/firestore';
+import {  AngularFirestore, AngularFirestoreDocument } from 'angularfire2/firestore';
 import { switchMap, first } from 'rxjs/operators'
 import { of } from "rxjs";
 import { Router } from '@angular/router'
@@ -16,7 +16,7 @@ export class FirebaseService {
 
   user$: Observable<User>;
   user: User;
-
+ canLogin;
 
   constructor(public afAuth: AngularFireAuth, public afs: AngularFirestore,  public router: Router) {
     this.user$ = this.afAuth.authState.pipe(switchMap(user => {
@@ -24,15 +24,20 @@ export class FirebaseService {
         if ((user.email.endsWith("pdsb.net") && user.email.toLowerCase().startsWith("p")) || (user.email == "rushigandhi25@gmail.com")|| (user.email == "dpancea@gmail.com")){
           return this.afs.doc<User>(`teachers/${user.uid}`).valueChanges();
         }
-        else {
+        else if ((user.email == "rgandhi848@gmail.com") || (!isNaN(parseInt(user.email.charAt(0)))  && user.email.endsWith("pdsb.net"))){
           return this.afs.doc<User>(`students/${user.uid}`).valueChanges();
         }
+       
+        
       }
       else {
+       // alert("ACCESS DENIED -  please use a valid email only");
         return of(null);
       }
     }));
   }
+
+
 
   signInWithGoogle(){
     const provider = new firebase.auth.GoogleAuthProvider();
@@ -40,9 +45,12 @@ export class FirebaseService {
       if ((credential.user.email.endsWith("pdsb.net") && credential.user.email.toLowerCase().startsWith("p")) || (credential.user.email == "dpancea@gmail.com")|| (credential.user.email == "rushigandhi25@gmail.com")) {
         this.createTeacher(credential.user);
       }
-      else {
+      else if((credential.user.email == "rgandhi848@gmail.com") || ( !isNaN(parseInt(credential.user.email.charAt(0))) && credential.user.email.endsWith("pdsb.net"))) {
         this.createStudent(credential.user);
+      }else{
+        alert("ACCESS DENIED -  Please use your pdsb.net email!");
       }
+    
     });
   }
 

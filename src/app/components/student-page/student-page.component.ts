@@ -4,6 +4,7 @@ import {Router} from '@angular/router'
 import { User } from '../../models/user'
 import { MachineService } from 'src/app/machines.service';
 import { Subscription } from 'rxjs';
+import { toast } from 'materialize-css';
 
 @Component({
   selector: 'app-student-page',

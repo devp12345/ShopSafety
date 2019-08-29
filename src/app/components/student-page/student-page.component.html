@@ -18,7 +18,7 @@
           <div class="col s2">
             <div class="card">
               <br>
-                <img class="smaller"[src]="student.photoURL">
+                <!-- <img class="smaller"[src]="student.photoURL"> -->
                 <br>
               <span class="flow-text">Welcome <br><strong>{{student.fullName}}</strong></span>
             </div>
@@ -45,27 +45,32 @@
                               </div>
                               <div *ngIf="student.inClassTraining[i] == false">
                                   <i class="material-icons left red-text text-lighten-1">error</i>
-                                  <p class="flow-text">Incomplete</p>
+                                  <a href="javascript: void(0);" (click)="requestForCompletion(i, 'TRAINING')" class="flow-text">Request for Completion</a>
                               </div>
+                              
                             </td>
                             <td>
                                 <div *ngIf="student.onlineTraining[i] == true">
                                     <i class="material-icons left teal-text text-accent-4">done</i>
                                     <p class="flow-text">Completed</p>
                                 </div>
+                               
                                 <div *ngIf="student.onlineTraining[i] == false">
                                     <i class="material-icons left red-text text-lighten-1">error</i>
-                                    <p class="flow-text">Incomplete</p>
+                                    <a href="javascript: void(0);" (click)="requestForCompletion(i, 'VIDEOS')" class="flow-text">Request for Completion</a>
                                 </div>
+                                <div >
+                                  <a style="color:#522888" href="{{videoList[i]}}" target="_blank" >Training video</a>
+                               </div>
                             </td>
-                            <td>
+                            <td>  
                                 <div *ngIf="student.tests[i] == true">
                                     <i class="material-icons left teal-text text-accent-4">done</i>
                                     <p class="flow-text">Completed</p>
                                 </div>
                                 <div *ngIf="student.tests[i] == false">
                                     <i class="material-icons left red-text text-lighten-1">error</i>
-                                    <p class="flow-text">Incomplete</p>
+                                    <a href="javascript: void(0);" (click)="requestForCompletion(i, 'TESTS')" class="flow-text">Request for Completion</a>
                                 </div>
                             </td>
                           </tr>

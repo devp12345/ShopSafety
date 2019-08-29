@@ -14,6 +14,7 @@ export class HomePageComponent implements OnInit {
   ngOnInit() {
   }
 
+  //add a prompt for if you cant sign in due to restrictions in the firebase.ts file 
   signIn(){
     this.fbService.signInWithGoogle();
   }
